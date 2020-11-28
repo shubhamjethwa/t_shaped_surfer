@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config.js');
 
-const nodemailer = require('nodemailer');
+//const nodemailer = require('nodemailer');
 
 const app = express();
 
@@ -23,16 +23,16 @@ app.get('/submit', (req, res) => {
     res.redirect('/');
 })
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        type: 'OAuth2',
-        user: config.gcp_email,
-        clientId: config.gcp_clientId,
-        clientSecret: config.gcp_clientSecret,
-        refreshToken: config.gcp_refreshToken
-    }
-});
+//const transporter = nodemailer.createTransport({
+//    service: 'gmail',
+//    auth: {
+//        type: 'OAuth2',
+//        user: config.gcp_email,
+//        clientId: config.gcp_clientId,
+//        clientSecret: config.gcp_clientSecret,
+//        refreshToken: config.gcp_refreshToken
+//    }
+//});
 
 const AWS = require("aws-sdk");
 AWS.config.update({
@@ -62,7 +62,7 @@ app.post('/submit', async(req, res) => {
         };
         var util = require('util');
 
-        await db_client.put(data).promise();
+//        await db_client.put(data).promise();
         
         var mailOptions = {
             from: config.email_from,
@@ -71,18 +71,18 @@ app.post('/submit', async(req, res) => {
             text: config.email_body,
             html: '<p>Hi ' + name + '</p><p>' + config.email_body  + '</p>'
         }
-        transporter.sendMail(mailOptions, (err, result)=>{
-            if(err){
-                console.log('Error gan!');
-            } else{
-                console.log('Successfully sending email');
-            }
-            let output = '<html><head><meta http-equiv="refresh" content="2;url=/#features" /></head>';
-            output += '<br/><br/><center>' + config.email_body + '<br/><br/>';
-            output += '<a href="/#features" target="_self" >Get back to homepage</a></center>';
-            res.setHeader('Content-Type', 'text/html');
-            res.send(output);
-        });
+//        transporter.sendMail(mailOptions, (err, result)=>{
+//            if(err){
+//                console.log('Error gan!');
+//            } else{
+//                console.log('Successfully sending email');
+//            }
+//            let output = '<html><head><meta http-equiv="refresh" content="2;url=/#features" /></head>';
+//            output += '<br/><br/><center>' + config.email_body + '<br/><br/>';
+//            output += '<a href="/#features" target="_self" >Get back to homepage</a></center>';
+//            res.setHeader('Content-Type', 'text/html');
+//            res.send(output);
+//        });
     }
 });
 
